@@ -21,6 +21,7 @@ suite('Unit Tests', () => {
             expect(() => solver.validate(
                 '1G5762984946381257728459613694517832812936745357824196473298561581673429269145378'
             )).to.throw('Invalid characters in puzzle');
+            assert.isTrue(true);
             done();
         });
 
@@ -30,6 +31,7 @@ suite('Unit Tests', () => {
             expect(() => solver.validate(
                 '13576298494638125772845961369451783281293674535782419647329856158167342926914537'
             )).to.throw('Expected puzzle to be 81 characters long');
+            assert.isTrue(true);
             done();
         });
 

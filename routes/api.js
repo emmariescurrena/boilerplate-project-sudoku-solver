@@ -13,33 +13,37 @@ module.exports = function (app) {
             const puzzle = req.body.puzzle;
             const coordinate = req.body.coordinate;
             const value = req.body.value;
+
+            if (puzzle == undefined || coordinate == undefined || value == undefined) {
+                return res.json({ error: 'Required field(s) missing' });
+            }
+
             const row = coordinate.charAt(0);
             const column = Number(coordinate.charAt(1));
-
             try {
-                if (!puzzle || !coordinate || !value) {
-                    throw 'Required field(s) missing';
-                }
-                if (puzzle.length !== 81) {
+                if (puzzle.length != 81) {
                     throw 'Expected puzzle to be 81 characters long';
                 }
-                if (coordinate.length > 2 || column < 1 || column > 9 ||
+                for (let i = 0; i <= 80; i++) {
+                    const curr = puzzle[i];
+                    if (curr == ".") {
+                        continue;
+                    }
+                    if (isNaN(curr)) {
+                        throw 'Invalid characters in puzzle';
+                    }
+                }
+                if (coordinate.length != 2 || column < 1 || column > 9 ||
                     !['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i'].includes(row.toLowerCase())
                 ) {
                     throw 'Invalid coordinate';
                 }
+                if (isNaN(value)) {
+                    throw 'Invalid value';
+                }
                 const valueAsNumber = Number(value);
                 if (valueAsNumber < 1 || valueAsNumber > 9) {
                     throw 'Invalid value';
-                }
-                for (let i = 0; i <= 80; i++) {
-                    const value = puzzle[i];
-                    if (value == ".") {
-                        continue;
-                    }
-                    if (isNaN(value)) {
-                        throw 'Invalid characters in puzzle';
-                    }
                 }
             } catch (error) {
                 return res.json({ error: error });

@@ -153,8 +153,7 @@ suite('Functional Tests', () => {
                 .request(server)
                 .post('/api/check')
                 .send({
-                    puzzle: '',
-                    coordinate: '',
+                    puzzle: puzzlesAndSolutions[0][1],
                     value: '2'
                 })
                 .end((err, res) => {
@@ -185,7 +184,7 @@ suite('Functional Tests', () => {
                 .request(server)
                 .post('/api/check')
                 .send({
-                    puzzle: '13576298494638125772845961369451783281293674535782419647329856158167342926914537',
+                    puzzle: '1',
                     coordinate: 'A1',
                     value: '2'
                 })
@@ -219,7 +218,7 @@ suite('Functional Tests', () => {
                 .send({
                     puzzle: puzzlesAndSolutions[0][0],
                     coordinate: 'A1',
-                    value: '10'
+                    value: '0'
                 })
                 .end((err, res) => {
                     assert.equal(res.status, 200);
